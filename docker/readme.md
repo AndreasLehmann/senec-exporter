@@ -1,0 +1,1 @@
+do not start docker build inside this directory
