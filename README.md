@@ -10,10 +10,10 @@ start locally with:
 
 Create a Docker Image with:
 
-`docker build -t senect_export_app -f docker/Dockerfile .`
+`docker build -t senec_exporter_app -f docker/Dockerfile .`
 
 Start with:
 
-`docker run -p 8000:8000 --rm --name TEST senect_export_app`
+`docker run -p 8000:8000 --restart unless-stopped --name senec_exporter senec_exporter_app`
 
 ->> http://localhost:8000/
