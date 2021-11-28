@@ -9,4 +9,4 @@ COPY ./*.py ./
 
 EXPOSE 8000
 
-CMD [ "python", "senec_exporter.py" ]
+CMD [ "python", "senec_exporter.py", "-ip", "192.168.9.91" ,"-r", "20" ]
