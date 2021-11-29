@@ -9,7 +9,12 @@
             "type": "python",
             "request": "launch",
             "program": "${file}",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "args": [
+                "-ip","192.168.9.91",
+                "-r","10",
+                "-p","8001"
+            ]
         }
     ]
 }
