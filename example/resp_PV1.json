@@ -1,0 +1,83 @@
+{
+    "PV1": {
+        "ERROR_STATE_INT": [
+            "u3_00000000",
+            "u3_00000000"
+        ],
+        "INTERNAL_INV_ERROR_TEXT": [
+            "st_",
+            "st_"
+        ],
+        "INTERNAL_INV_ERR_STATE_VALID": [
+            "u8_01",
+            "u8_01"
+        ],
+        "INTERNAL_INV_STATE": [
+            "u8_02",
+            "u8_00"
+        ],
+        "INTERNAL_MD_AVAIL": [
+            "u8_01",
+            "u8_01"
+        ],
+        "INTERNAL_MD_MANUFACTURER": [
+            "st_Senec",
+            "st_Senec"
+        ],
+        "INTERNAL_MD_MODEL": [
+            "st_V3 LV",
+            "st_V3 HV"
+        ],
+        "INTERNAL_MD_SERIAL": [
+            "st_767272GE007961410012",
+            "st_765856GE007973670010"
+        ],
+        "INTERNAL_MD_VERSION": [
+            "st_HMI: 3.16.20 PU: 4.3.10 BDC: 5.4.6",
+            "st_HMI: 3.16.20 PU: 4.3.10"
+        ],
+        "INTERNAL_PV_AVAIL": "u8_02",
+        "INV_MODEL": [
+            "st_",
+            "st_",
+            "st_END_OF_ARRAY"
+        ],
+        "INV_SERIAL": [
+            "st_",
+            "st_",
+            "st_END_OF_ARRAY"
+        ],
+        "INV_VERSIONS": [
+            "st_HMI: 3.16.20 PU: 4.3.10",
+            "st_HMI: 3.16.20 PU: 4.3.10",
+            "st_END_OF_ARRAY"
+        ],
+        "MPP_AVAIL": "u8_03",
+        "MPP_CUR": [
+            "fl_00000000",
+            "fl_00000000",
+            "fl_00000000"
+        ],
+        "MPP_POWER": [
+            "fl_00000000",
+            "fl_00000000",
+            "fl_00000000"
+        ],
+        "MPP_VOL": [
+            "fl_43B23313",
+            "fl_43B20688",
+            "fl_00000000"
+        ],
+        "POWER_RATIO": "u3_00000064",
+        "POWER_RATIO_L1": "u3_00000064",
+        "POWER_RATIO_L2": "u3_00000064",
+        "POWER_RATIO_L3": "u3_00000064",
+        "PV_MISSING": "u8_00",
+        "P_TOTAL": "fl_00000000",
+        "STATE_INT": [
+            "u3_00000110",
+            "u3_00000130"
+        ],
+        "TYPE": "u8_A0"
+    }
+}

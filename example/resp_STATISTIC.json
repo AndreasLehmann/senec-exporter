@@ -1,0 +1,37 @@
+{
+    "STATISTIC": {
+        "CURRENT_STATE": "u1_000F",
+        "LIVE_BAT_CHARGE": "fl_42BC101A",
+        "LIVE_BAT_CHARGE_MASTER": "fl_42BC101A",
+        "LIVE_BAT_DISCHARGE": "fl_42AE3DAE",
+        "LIVE_BAT_DISCHARGE_MASTER": "fl_42AE3DAE",
+        "LIVE_GRID_EXPORT": "fl_42B08C2E",
+        "LIVE_GRID_IMPORT": "fl_44C6968B",
+        "LIVE_HOUSE_CONS": "fl_44E0F3BF",
+        "LIVE_PU_ENERGY": [
+            "fl_00000000",
+            "fl_00000000",
+            "fl_00000000",
+            "fl_00000000",
+            "fl_00000000",
+            "fl_00000000"
+        ],
+        "LIVE_PV_GEN": "fl_439D4922",
+        "LIVE_PV_GEN_MASTER": "fl_00000000",
+        "LIVE_WB_ENERGY": [
+            "u6_0000000000000000",
+            "u6_0000000000000000",
+            "u6_0000000000000000",
+            "u6_0000000000000000"
+        ],
+        "MEASURE_TIME": "i3_61A9B9A5",
+        "STAT_SUM_E_PU": [
+            "u6_0000000000000000",
+            "u6_0000000000000000",
+            "u6_0000000000000000",
+            "u6_0000000000000000",
+            "u6_0000000000000000",
+            "u6_0000000000000000"
+        ]
+    }
+}
