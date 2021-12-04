@@ -99,7 +99,9 @@ class myHttpHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
-        self.wfile.write(b'{json}')
+        
+        senec_data_json = json.dumps(senec_data, ensure_ascii=False, indent=2)
+        self.wfile.write(senec_data_json.encode())
         self.wfile.flush()
 
 # END: HTTP Request handler class
@@ -107,6 +109,9 @@ class myHttpHandler(BaseHTTPRequestHandler):
 
 def update_metrics():
     print("collecting metrics from " + senec_ip_address)
+
+    global senec_data
+    senec_data ={ 'name':'senec_exporter'}
 
     #########################################
     ## read Energy supplier data
@@ -116,6 +121,8 @@ def update_metrics():
     # Energy consumption from supplier (supplier total) (W) Werte -3000  >> 3000
     prom_EVU_Bezug_Watt.set( round(
                 senec_util.decode(jsondata['PM1OBJ1']['P_TOTAL']),0))
+    senec_data['PM1OBJ1']={ 'P_TOTAL':round(
+                senec_util.decode(jsondata['PM1OBJ1']['P_TOTAL']),0)}
 
     # supplier provided voltage
     prom_supplier_Voltage_V.labels(phase=1).set( round(
@@ -164,6 +171,14 @@ def update_metrics():
                 senec_util.decode(jsondata['ENERGY']['GUI_BAT_DATA_FUEL_CHARGE']),0))
 
 
+    senec_data['ENERGY']={ 
+        'GUI_HOUSE_POW':round(senec_util.decode(jsondata['ENERGY']['GUI_HOUSE_POW']),0),
+        'GUI_INVERTER_POWER':round(senec_util.decode(jsondata['ENERGY']['GUI_INVERTER_POWER']),0),
+        'GUI_BAT_DATA_POWER':round(senec_util.decode(jsondata['ENERGY']['GUI_BAT_DATA_POWER']),0),
+        'GUI_BAT_DATA_FUEL_CHARGE':round(senec_util.decode(jsondata['ENERGY']['GUI_BAT_DATA_FUEL_CHARGE']),0),
+        }
+    
+
 
     #########################################
     ## read statistic data from SENEC PV
@@ -202,7 +217,15 @@ def update_metrics():
     prom_batt_discharge_total_x.set( round(
                 senec_util.decode(jsondata['STATISTIC']['LIVE_BAT_DISCHARGE']),2))
 
-
+    senec_data['STATISTIC']={ 
+        'CURRENT_STATE':status_message,
+        'LIVE_GRID_EXPORT':round(senec_util.decode(jsondata['STATISTIC']['LIVE_GRID_EXPORT']),0),
+        'LIVE_GRID_IMPORT':round(senec_util.decode(jsondata['STATISTIC']['LIVE_GRID_IMPORT']),0),
+        'LIVE_HOUSE_CONS':round(senec_util.decode(jsondata['STATISTIC']['LIVE_HOUSE_CONS']),0),
+        'LIVE_PV_GEN':round(senec_util.decode(jsondata['STATISTIC']['LIVE_PV_GEN']),0),
+        'LIVE_BAT_CHARGE':round(senec_util.decode(jsondata['STATISTIC']['LIVE_BAT_CHARGE']),0),
+        'LIVE_BAT_DISCHARGE':round(senec_util.decode(jsondata['STATISTIC']['LIVE_BAT_DISCHARGE']),0),
+        }
 
 
     #########################################
@@ -262,3 +285,4 @@ if __name__ == '__main__':
     print("Sampling rate: %d" % sample_rate)
     
     main(sample_rate, http_port)
+
