@@ -23,21 +23,21 @@ prom_PV_Erzeugung_Watt = Gauge("energy_PV_Erzeugung_Aktuell_W","Aktuell erzeugte
 prom_Batterie_Entladung_Watt = Gauge("energy_Batterie_Entladung_Aktuell_W","Aktuelle Batterie Ladung/Entladung in Watt")
 prom_Batterie_SOC_Prozent = Gauge("energy_Batterie_SOC_Prozent","Aktueller Ladezustand der Batterie in Prozent")
 prom_feed_limit_percent = Gauge("energy_Einspeisebegrenzung_Prozent","Aktuelle Einspeisebegrenzung in Prozent")
-prom_batt_Volt = Gauge("energy_Battery_Voltage_V","Batteriespannung in Volt",labelnames=['battery'],unit='V')
-prom_batt_Ampere = Gauge("energy_Battery_Current_A","Batteriestrom in Ampere",labelnames=['battery'],unit='A')
-prom_batt_Watt = Gauge("energy_Battery_Power_W","Batterieleistung in Watt",labelnames=['battery'],unit='W')
+prom_PVModul_Volt = Gauge("energy_PVModule_Voltage_V","Batteriespannung in Volt",labelnames=['battery'],unit='V')
+prom_PVModul_Ampere = Gauge("energy_PVModule_Current_A","Batteriestrom in Ampere",labelnames=['battery'],unit='A')
+prom_PVModule_Watt = Gauge("energy_PVModule_Power_W","Batterieleistung in Watt",labelnames=['battery'],unit='W')
 
 prom_supplier_Voltage_V = Gauge("energy_EVU_Spannung_V","Netzspannung in Volt",labelnames=['phase'],unit='V')
 prom_suppler_Current_A = Gauge("energy_EVU_Strom_A","Netzstrom in Ampere",labelnames=['phase'],unit='A')
 prom_suppler_Power_W = Gauge("energy_EVU_Leistung_W","Netzleistung in Watt",labelnames=['phase'],unit='W')
 
 # Einheiten sind weitgehend unbekannt!
-prom_grid_export_total_x = Gauge("energy_EVU_Export_Total_x","Gesamtexport an das Netz",unit='x')
-prom_grid_import_total_x = Gauge("energy_EVU_Import_Total_x","Gesamtimport aus dem Netz",unit='x')
-prom_grid_house_total_x = Gauge("energy_Hausverbrauch_Total_x","Gesamtverbrauchszähler",unit='x')
-prom_pv_gen_total_x = Gauge("energy_PV_Erzeugt_Total_x","Gesamter erzeugter Solarstrom",unit='x')
-prom_batt_charge_total_x = Gauge("energy_Batterie_Gesamtladung_x","Gesamte Ladeleistung in die Batterie",unit='x')
-prom_batt_discharge_total_x = Gauge("energy_Batterie_Gesamtentladung_x","Gesamte Entladungsleistung aus der Batterie",unit='x')
+prom_grid_export_total_x = Gauge("energy_EVU_Export_Total_kWh","Gesamtexport an das Netz",unit='kWh')
+prom_grid_import_total_x = Gauge("energy_EVU_Import_Total_kWh","Gesamtimport aus dem Netz",unit='kWh')
+prom_grid_house_total_x = Gauge("energy_Hausverbrauch_Total_kWh","Gesamtverbrauchszähler",unit='kWh')
+prom_pv_gen_total_x = Gauge("energy_PV_Erzeugt_Total_kWh","Gesamter erzeugter Solarstrom",unit='kWh')
+prom_batt_charge_total_x = Gauge("energy_Batterie_Gesamtladung_kWh","Gesamte Ladeleistung in die Batterie",unit='kWh')
+prom_batt_discharge_total_x = Gauge("energy_Batterie_Gesamtentladung_kWh","Gesamte Entladungsleistung aus der Batterie",unit='kWh')
 
 def main(sample_rate, http_port):
 
@@ -189,7 +189,9 @@ def update_metrics():
     # current status meaassge
     
     status_code = senec_util.decode(jsondata['STATISTIC']['CURRENT_STATE'])
+    #print (status_code)
     status_message = senec_util.SYSTEM_STATE_NAME[ status_code ]
+    #print (status_message)
     prom_Info.info({'status': status_message , 'ip':'?'})
     
 
@@ -229,7 +231,7 @@ def update_metrics():
 
 
     #########################################
-    ## read pv (battery) data
+    ## read pv (module) data
     query = '{"PV1":{"POWER_RATIO":"","MPP_VOL":"","MPP_CUR":"","MPP_POWER":""}}'
     jsondata = read_senec_data(query)
     #print(jsondata)
@@ -238,28 +240,28 @@ def update_metrics():
     prom_feed_limit_percent.set( round(
                 senec_util.decode(jsondata['PV1']['POWER_RATIO']),1))
 
-    # battery voltage
-    prom_batt_Volt.labels(battery=0).set( round(
+    # PV Module voltage
+    prom_PVModul_Volt.labels(battery=0).set( round(
                 senec_util.decode(jsondata['PV1']['MPP_VOL'][0]),1))
-    prom_batt_Volt.labels(battery=1).set( round(
+    prom_PVModul_Volt.labels(battery=1).set( round(
                 senec_util.decode(jsondata['PV1']['MPP_VOL'][1]),1))
-    prom_batt_Volt.labels(battery=2).set( round(
+    prom_PVModul_Volt.labels(battery=2).set( round(
                 senec_util.decode(jsondata['PV1']['MPP_VOL'][2]),1))
 
-    # battery current
-    prom_batt_Ampere.labels(battery=0).set( round(
+    # PV Module current
+    prom_PVModul_Ampere.labels(battery=0).set( round(
                 senec_util.decode(jsondata['PV1']['MPP_CUR'][0]),1))
-    prom_batt_Ampere.labels(battery=1).set( round(
+    prom_PVModul_Ampere.labels(battery=1).set( round(
                 senec_util.decode(jsondata['PV1']['MPP_CUR'][1]),1))
-    prom_batt_Ampere.labels(battery=2).set( round(
+    prom_PVModul_Ampere.labels(battery=2).set( round(
                 senec_util.decode(jsondata['PV1']['MPP_CUR'][2]),1))
 
-    # battery power
-    prom_batt_Watt.labels(battery=0).set( round(
+    # PV Module power
+    prom_PVModule_Watt.labels(battery=0).set( round(
                 senec_util.decode(jsondata['PV1']['MPP_POWER'][0]),1))
-    prom_batt_Watt.labels(battery=1).set( round(
+    prom_PVModule_Watt.labels(battery=1).set( round(
                 senec_util.decode(jsondata['PV1']['MPP_POWER'][1]),1))
-    prom_batt_Watt.labels(battery=2).set( round(
+    prom_PVModule_Watt.labels(battery=2).set( round(
                 senec_util.decode(jsondata['PV1']['MPP_POWER'][2]),1))
 
 # Wrapper to request data from senec pv
