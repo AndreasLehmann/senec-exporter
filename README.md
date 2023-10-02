@@ -16,8 +16,16 @@ Getestet mit **SENEC.Home V3 hybrid duo** mit 3 x 2,5 kWh Akkus. Andere SENEC We
 ## Funktionsweise
 Die Anlagendaten werden per HTTP aus dem Wechselrichter gelesen und über einen eigene HTTP-Server im Prometheus-Format bereitgestellt. Außerdem ist noch eine Aufbereitung im json-Format vorgesehen, um Pull-Basierte Abfragen der Anlagendaten zu ermöglichen. Zum Beispiel mit node-red.
 
-Start Parameter für den senec_exporter:
+Umgebungsvariablen für den senec_exporter:
 
+|Variable      | Beschreibung                 |
+|--------------|------------------------------|
+|`SENEC_IP`    | IP des SENEC Wechselrichters |
+|`SAMPLE_RATE` | Abtastrate in Sekunden       |
+|`HTTP_PORT`   | HTTP port für den WebServer  |
+
+
+Alternativ können auch Parameter übergeben werden.
 ```
 -ip / --senec-ip = ip address of the senec device e.g. 192.168.1.7 (required) 
 
@@ -25,6 +33,7 @@ Start Parameter für den senec_exporter:
 
 -p / --port = HTTP-Server port where the Prometheus data will be exposed (default=8000)
 ```
+Alternativ können auch Parameter übergeben werden.
 
 Install requirements:
 `pip3 install -r requirements.txt`
