@@ -1,0 +1,13 @@
+---
+version: "2.1"
+services:
+  senec_exporter:
+    image: nas01.local:5500/senec_exporter
+    container_name: senec_exporter
+    environment:
+      - SENEC_IP=192.168.15.58
+      - SAMPLE_RATE=30
+      - TZ="Europe/Berlin"
+    ports:
+      - 9105:8000
+    restart: unless-stopped
