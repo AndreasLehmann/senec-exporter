@@ -277,7 +277,9 @@ def read_senec_data(json_query):
 if __name__ == '__main__':
     senec_ip_address = os.getenv("SENEC_IP")
     sample_rate = os.getenv("SAMPLE_RATE")
-
+    if sample_rate != None:
+        sample_rate=int(sample_rate)
+        
     parser = ArgumentParser()
     if senec_ip_address == None:
         parser.add_argument("-ip", "--senec-ip", dest="senec_ip_address", required=True)
