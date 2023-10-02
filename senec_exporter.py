@@ -5,7 +5,7 @@ import threading
 from time import sleep
 from urllib.request import urlopen
 from argparse import ArgumentParser
-
+import ssl
 import senec_util
 
 # install -> pip install prometheus-client
@@ -266,7 +266,9 @@ def update_metrics():
 
 # Wrapper to request data from senec pv
 def read_senec_data(json_query):
-    response = urlopen('http://' + senec_ip_address + '/lala.cgi',data=json_query.encode('utf-8'))
+    # Senec SSL certificate is invalid :-(
+    ssl._create_default_https_context = ssl._create_unverified_context
+    response = urlopen('https://' + senec_ip_address + '/lala.cgi',data=json_query.encode('utf-8'))
     return json.load(response)
 
     

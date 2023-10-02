@@ -1,13 +1,15 @@
 #/bin/zsh
 
 #DATA="{\"WIZARD\":{}}"
-#DATA="{\"STATISTIC\":{}}"
+DATA="{\"STATISTIC\":{}}"
 #DATA="{\"ENERGY\":{}}"
 #DATA="{\"PV1\":{}}"
-DATA="{\"PM1OBJ1\":{}}"
+#DATA="{\"PM1OBJ1\":{}}"
 
-IP=192.168.9.91
+IP=192.168.15.58
 
-curl -X POST http://$IP/lala.cgi -d $DATA
+# Senec SSL certificate is invalid :-(
+
+curl --insecure -X POST https://$IP/lala.cgi -d $DATA
 
 

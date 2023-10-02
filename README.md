@@ -1,5 +1,11 @@
 # Prometheus Exporter für SENEC PV Anlage
 
+
+
+> **ACHTUNG:** Seit 9/2023 gibt es ein Firmware-Update, bei dem SENEC von http auf https umgestellt hat (und dabei mit einem ungüligen SSL Zertifiak arbeitet :-( ). Diese Umstellung ist hier bereits berücksichtigt. Allerdings liefert das lala.cgi script nun keine STATISTIC Datenblöcke mehr aus. Daher sind nur noch die Momentanverbräuche nutzbar.
+> Damit ist der Scaper quasi unbrauchbar.
+
+
 Der senec_exporter stellt die Anlagendaten des PV-Wechselrichters im Prometheus Format zur Verfügung.
 
 Thanks to Nancy Chauhan for sharing her HTTP Exporter sample: 
@@ -20,8 +26,10 @@ Start Parameter für den senec_exporter:
 -p / --port = HTTP-Server port where the Prometheus data will be exposed (default=8000)
 ```
 
-Start locally with:
+Install requirements:
+`pip3 install -r requirements.txt`
 
+Start locally with:
 
 `python3 senec_exporter.py -ip 192.168.1.7 -r 5`
 
