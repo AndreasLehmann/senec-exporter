@@ -22,8 +22,6 @@ Umgebungsvariablen für den senec_exporter:
 |--------------|------------------------------|
 |`SENEC_IP`    | IP des SENEC Wechselrichters |
 |`SAMPLE_RATE` | Abtastrate in Sekunden       |
-|`HTTP_PORT`   | HTTP port für den WebServer  |
-
 
 Alternativ können auch Parameter übergeben werden.
 ```

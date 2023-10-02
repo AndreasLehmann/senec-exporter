@@ -277,23 +277,20 @@ def read_senec_data(json_query):
 if __name__ == '__main__':
     senec_ip_address = os.getenv("SENEC_IP")
     sample_rate = os.getenv("SAMPLE_RATE")
-    http_port = os.getenv("HTTP_PORT")
 
     parser = ArgumentParser()
     if senec_ip_address == None:
         parser.add_argument("-ip", "--senec-ip", dest="senec_ip_address", required=True)
     if sample_rate == None:
         parser.add_argument("-r", "--rate", dest="sample_rate", default=20)
-    if http_port == None:
-        parser.add_argument("-p", "--port", dest="http_port", default=8000)
+    parser.add_argument("-p", "--port", dest="http_port", default=8000)
     args = parser.parse_args()
     
     if senec_ip_address == None:
         senec_ip_address=args.senec_ip_address
     if sample_rate == None:
         sample_rate=int(args.sample_rate)
-    if http_port == None:   
-        http_port=int(args.http_port)
+    http_port=int(args.http_port)
 
     print("SENEC PV IP-address: " + senec_ip_address)
     print("Sampling rate: %d" % sample_rate)
