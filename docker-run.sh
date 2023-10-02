@@ -1,0 +1,1 @@
+docker run --rm -e NODE_TLS_REJECT_UNAUTHORIZED=0 -d -p 9105:8000  --name senec_exporter senec_exporter_app
