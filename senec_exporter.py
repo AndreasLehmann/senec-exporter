@@ -114,6 +114,16 @@ def update_metrics():
     global senec_data
     senec_data ={ 'name':'senec_exporter'}
 
+    read_energy_data()
+    read_battery_data()
+    read_PV_data()
+    # STATSTICS are not working anymore ! caused by changes in the SENEC firmware
+    # read_statistics()
+
+
+
+
+def read_energy_data():
     #########################################
     ## read Energy supplier data
     query = '{"PM1OBJ1":{"FREQ":"","U_AC":"","I_AC":"","P_AC":"","P_TOTAL":""}}'
@@ -149,6 +159,7 @@ def update_metrics():
     prom_suppler_Power_W.labels(phase=3).set( round(
                 senec_util.decode(jsondata['PM1OBJ1']['P_AC'][2]),1))            
 
+def read_battery_data():
     #########################################
     ## read battery data
     query = '{"ENERGY":{"GUI_BAT_DATA_FUEL_CHARGE":"","GUI_BAT_DATA_POWER":"","GUI_BAT_DATA_VOLTAGE":"","GUI_BAT_DATA_OA_CHARGING":"","GUI_HOUSE_POW":"","GUI_INVERTER_POWER":""}}'
@@ -178,9 +189,9 @@ def update_metrics():
         'GUI_BAT_DATA_POWER':round(senec_util.decode(jsondata['ENERGY']['GUI_BAT_DATA_POWER']),0),
         'GUI_BAT_DATA_FUEL_CHARGE':round(senec_util.decode(jsondata['ENERGY']['GUI_BAT_DATA_FUEL_CHARGE']),0),
         }
-    
 
 
+def read_statistics():
     #########################################
     ## read statistic data from SENEC PV
     query = '{"STATISTIC":{"CURRENT_STATE":"","LIVE_BAT_CHARGE":"","LIVE_BAT_DISCHARGE":"","LIVE_GRID_EXPORT":"","LIVE_GRID_IMPORT":"","LIVE_HOUSE_CONS":"","LIVE_PV_GEN":""}}'
@@ -230,7 +241,7 @@ def update_metrics():
         'LIVE_BAT_DISCHARGE':round(senec_util.decode(jsondata['STATISTIC']['LIVE_BAT_DISCHARGE']),0),
         }
 
-
+def read_PV_data():
     #########################################
     ## read pv (module) data
     query = '{"PV1":{"POWER_RATIO":"","MPP_VOL":"","MPP_CUR":"","MPP_POWER":""}}'
